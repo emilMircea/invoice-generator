@@ -1,42 +1,60 @@
-<%= form_for(invoice) do |f| %>
-  <% if invoice.errors.any? %>
+<div class="container">
+    <%= form_for(invoice) do |f| %>
+    <% if invoice.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+        <h2><%= pluralize(invoice.errors.count, "error") %>
+            prohibited this invoice from being saved:</h2>
 
-      <ul>
-      <% invoice.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+            <% invoice.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+        </ul>
     </div>
-  <% end %>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :amount %>
-    <%= f.text_field :amount %>
-  </div>
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <div class="field input-group">
+                <span class="input-group-addon" ><%= f.label :amount, id: "amount-label" %></span>
+                <%= f.text_field :amount, class: "form-control", 'aria-describedby': 'basic' %>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="field">
+                <span class="input-group-addon" ><%= f.label :date, id: "date-label" %></span>
+                <div class="date-select-wrapper">
+                    <%= f.date_select :date, as: :string, class: "form-control datepicker" %>
+                </div>
 
-  <div class="field">
-    <%= f.label :company %>
-    <%= f.text_field :company %>
-  </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="field input-group">
+                <span class="input-group-addon">From:</span>
+                <%= f.text_field :company, class: "form-control" %>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="field input-group">
+                <span class="input-group-addon" id="to-label">To:</span>
+                <%= f.text_field :contractor, class: "form-control" %>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="field input-group">
+                <span class="input-group-addon"><%= f.label :currency, id: "currency-label" %></span>
+                <%= f.text_field :currency, class: "form-control" %>
+            </div>
+        </div>
+        <div class="actions col-10">
+            <%= f.submit 'Submit Payment' , class: "btn btn-primary"%>
+        </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :contractor %>
-    <%= f.text_field :contractor %>
-  </div>
 
-  <div class="field">
-    <%= f.label :currency %>
-    <%= f.text_field :currency %>
-  </div>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :date %>
-    <%= f.date_select :date %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

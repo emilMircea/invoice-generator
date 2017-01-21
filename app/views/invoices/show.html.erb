@@ -1,29 +1,53 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Amount:</strong>
-  <%= @invoice.amount %>
-</p>
-
-<p>
-  <strong>Company:</strong>
-  <%= @invoice.company %>
-</p>
-
-<p>
-  <strong>Contractor:</strong>
-  <%= @invoice.contractor %>
-</p>
-
-<p>
-  <strong>Currency:</strong>
-  <%= @invoice.currency %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @invoice.date %>
-</p>
-
-<%= link_to 'Edit', edit_invoice_path(@invoice) %> |
-<%= link_to 'Back', invoices_path %>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <table id="index-table" class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            <strong>Amount:</strong>
+                        </th>
+                        <th>
+                            <strong>Company:</strong>
+                        </th>
+                        <th>
+                            <strong>Contractor:</strong>
+                        </th>
+                        <th>
+                            <strong>Currency:</strong>
+                        </th>
+                        <th>
+                            <strong>Date:</strong>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+                            <%= @invoice.amount %>
+                        </th>
+                        <th>
+                            <%= @invoice.company %>
+                        </th>
+                        <th>
+                            <%= @invoice.contractor %>
+                        </th>
+                        <th>
+                            <%= @invoice.currency %>
+                        </th>
+                        <th>
+                            <%= @invoice.date %>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td colspan="5 btn-group">
+                            <%= link_to 'Edit', edit_invoice_path(@invoice), class: "btn btn-warning" %>
+                            <%= link_to 'Back', invoices_path, class: "btn btn-info" %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

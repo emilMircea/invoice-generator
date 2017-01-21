@@ -1,11 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<div class="container">
-  <div class="row justify-content-center">
+  <div id="home-content-wrapper" class="row justify-content-center">
     <div class="col-8">
-        <table class="table table-hover">
+        <table id="index-table" class="table table-hover table-bordered table-responsive">
+            <thead class="thead">
+              <th colspan="8"><h3 class="table-title">Invoices</h3></th>
+            </thead>
             <thead>
-                <h3 class="table-title">Invoices</h3>
                 <tr>
                     <th>Amount</th>
                     <th>Company</th>
@@ -23,11 +24,10 @@
                     <td><%= invoice.contractor %></td>
                     <td><%= invoice.currency %></td>
                     <td><%= invoice.date %></td>
-                </tr>
-                <tr>
-                  <td><%= link_to 'Show', invoice %></td>
-                  <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
-                  <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+                    <td><%= link_to 'Show', invoice, class: "btn btn-info" %></td>
+                    <td><%= link_to 'Edit', edit_invoice_path(invoice), class: "btn btn-warning" %></td>
+                    <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
                 </tr>
                 <% end %>
             </tbody>
@@ -35,4 +35,3 @@
         <%= link_to 'New Invoice', new_invoice_path, class: "btn btn-primary" %>
     </div>
   </div>
-</div>
