@@ -1,60 +1,162 @@
-<div class="container">
-    <%= form_for(invoice) do |f| %>
-    <% if invoice.errors.any? %>
-    <div id="error_explanation">
-        <h2><%= pluralize(invoice.errors.count, "error") %>
-            prohibited this invoice from being saved:</h2>
+<%= form_for(invoice) do |f| %>
+<% if invoice.errors.any? %>
+<div id="error_explanation">
+    <h2><%= pluralize(invoice.errors.count, "error") %>
+        prohibited this invoice from being saved:</h2>
 
-        <ul>
-            <% invoice.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-            <% end %>
-        </ul>
-    </div>
-    <% end %>
-
-    <div class="row justify-content-center">
-        <div class="col-3">
+    <ul>
+        <% invoice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+<div class="row">
+        <div class="col-4 offset-1">
             <div class="field input-group">
-                <span class="input-group-addon" ><%= f.label :amount, id: "amount-label" %></span>
-                <%= f.text_field :amount, class: "form-control", 'aria-describedby': 'basic' %>
+                <span class="input-group-addon"><%= f.label :amount, id: "amount-label" %></span>
+                <%= f.text_field :amount, class: "form-control", 'aria-describedby': 'basic', id: "invoice_amount" %>
             </div>
         </div>
-        <div class="col-7">
-            <div class="field">
-                <span class="input-group-addon" ><%= f.label :date, id: "date-label" %></span>
+        <div class="col-6 offset-1">
+            <div class="field input-group">
+                <span class="input-group-addon"><%= f.label :date, id: "date-label", required: false %></span>
                 <div class="date-select-wrapper">
-                    <%= f.date_select :date, as: :string, class: "form-control datepicker" %>
+                    <%= f.date_select :date, as: :string, class: "form-control datepicker", id: "invoice_date" %>
                 </div>
-
             </div>
+        </div>
+</div>
+<div class="row">
+    <div class="col-4 offset-1">
+        <div class="field input-group">
+            <span class="input-group-addon">From:</span>
+            <address>
+                <%= f.text_field :company, class: "form-control", id: "addr_0", 'placeholder': 'Address Line 1' %>
+                <input type="text" class="form-control" id="addr_1" placeholder="Address Line 2">
+            </address>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <div class="field input-group">
-                <span class="input-group-addon">From:</span>
-                <%= f.text_field :company, class: "form-control" %>
-            </div>
+    <div class="col-4 offset-1">
+        <div class="field input-group">
+            <span class="input-group-addon" id="to-label">To:</span>
+            <address>
+                <%= f.text_field :contractor, class: "form-control", id: "addr_4", 'placeholder': 'Address Line 1' %>
+                <input type="text" class="form-control" id="addr_4" placeholder="Address Line 2">
+            </address>
         </div>
-        <div class="col-3">
-            <div class="field input-group">
-                <span class="input-group-addon" id="to-label">To:</span>
-                <%= f.text_field :contractor, class: "form-control" %>
-            </div>
+    </div>
+    <div class="col-4 offset-1">
+        <div class="field input-group">
+            <span class="input-group-addon"><%= f.label :currency, id: "currency-label", required: false %></span>
+            <%= f.text_field :currency, class: "form-control" %>
         </div>
-        <div class="col-3">
-            <div class="field input-group">
-                <span class="input-group-addon"><%= f.label :currency, id: "currency-label" %></span>
-                <%= f.text_field :currency, class: "form-control" %>
-            </div>
+    </div>
+</div>
+<br>
+<div class="row justify-content-around">
+    <div class="col-10">
+        <table class="table table-hover" id="items">
+            <thead>
+                <th class="item_name">Item</th>
+                <th class="description">Description</th>
+                <th class='unit'>Unit</th>
+                <th class='quantity'>Quantity</th>
+                <th class='price'>Price</th>
+                <th class='no_print'>Actions</th>
+            </thead>
+            <tbody>
+                        <tr class="item-row">
+                            <td><input class="form-control item_name" value="Item #1"/></td>
+                            <td><input class="form-control item_desc" value="Description"/></td>
+                            <td><input class="form-control cost" value="650.00"/></td>
+                            <td><input class="form-control qty" value="1"/></td>
+                            <td class="price_td">
+                                <span class="price">650.00</span>
+                                <span class="subtotal_currency"></span>
+                            </td>
+                            <td class="delete_td">
+                                <a class="delete" href="javascript:;" title="Remove row">
+                                    <span class="ti-close"></span>
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr class="item-row">
+                            <td><input class="form-control item_name" value="Item #2"/></td>
+
+                            <td><input class="form-control item_desc" value="Description #2"/></td>
+                            <td><input class="form-control cost" value="75.00"/></td>
+                            <td><input class="form-control qty" value="3"/></td>
+                            <td class="price_td">
+                                <span class="price">225.00</span>
+                                <span class="subtotal_currency"></span>
+                            </td>
+                            <td class="delete_td">
+                                <a class="delete" href="javascript:;" title="Remove row">
+                                    <span class="ti-close"></span>
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr id="hiderow">
+                            <td colspan="6">
+                                <a id="addrow" class="btn btn-info btn-sm" href="javascript:;" title="Add a row">
+                                    <span class="ti-plus"></span>
+                                    Add a row</a>
+                            </td>
+                        </tr>
+                    </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<div class="row justify-content-around">
+    <div class="col-6">
+        <div class="table-responsive">
+            <table class="table table-hover" id="totals">
+                <tr>
+                    <th style="width:50%">Subtotal:</th>
+                    <td>
+                        <span id="subtotal">875.00</span>
+                        <span class="subtotal_currency"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Tax:</th>
+                    <td><input id="9" class="form-control" value="0.00"/></td>
+                </tr>
+                <tr>
+                    <th>Total:</th>
+                    <td class="balance">
+                        <span class="due" id="invoice_total">875.00</span>
+                        <span class="subtotal_currency"></span>
+                    </td>
+                    <%=f.hidden_field :amount, id: "invoice_total1" %>
+                </tr>
+            </table>
         </div>
-        <div class="actions col-10">
+    </div>
+    <div class="col-4 offset-2 form-group">
+        <div class="input-group-addon">
+            <small>Invoice no:
+            </small>
+            <small id="invoice_number"><%= Invoice.last.present? ? Invoice.last.id + 1 : 1 %></small>
+        </div>
+        <div class="form-group text-center">
+            <span>Amount Due</span>
+            <br>
+            <span>800</span>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row justify-content-end">
+    <div class="col-11">
+        <div class="actions col-10 justify-content-around">
+            <a class="btn btn-info" id="show_invoice_btn" data-toggle="modal" data-target="#invoice_modal">Show Invoice</a>
             <%= f.submit 'Submit Payment' , class: "btn btn-primary"%>
         </div>
     </div>
-
-
-    <% end %>
-
 </div>
+<% end %>
