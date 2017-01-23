@@ -1,4 +1,9 @@
-<h1 id="new-invoice-title" class="text-center">New Invoice</h1>
+<div class="container-fluid">
+    <div class="row new-invoice-header">
+        <h1 id="new-invoice-title">New Invoice</h1>
+        <b style="text-align: right"><small>Date:</small><small id="date_val"></small></b>
+    </div>
+</div>
 
 <%= render 'form', invoice: @invoice %>
 

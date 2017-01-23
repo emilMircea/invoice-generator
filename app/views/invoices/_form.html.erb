@@ -13,18 +13,19 @@
 <% end %>
 <section id="main-invoice-section">
     <div class="row" id="form-row-1">
-        <div class="col-4 offset-1" id="amount-wrapper">
-            <div class="field input-group">
-                <span class="input-group-addon"><%= f.label :amount, id: "amount-label" %></span>
-                <%= f.text_field :amount, class: "form-control", 'aria-describedby': 'basic', id: "invoice_amount" %>
-            </div>
-        </div>
+
         <div class="col-6 offset-1" id="date-wrapper">
             <div class="field input-group">
                 <span class="input-group-addon"><%= f.label :date, id: "date-label", required: false %></span>
                 <div class="date-select-wrapper">
-                    <%= f.date_select :date, as: :string, class: "form-control datepicker", id: "invoice_date" %>
+                    <%= f.date_select :date, class: "form-control datepicker", id: "invoice_date" %>
                 </div>
+            </div>
+        </div>
+        <div class="col-3" id="currency-wrapper">
+            <div class="field input-group">
+                <span class="input-group-addon"><%= f.label :currency, id: "currency-label", required: false %></span>
+                <%= f.text_field :currency, class: "form-control", id: "invoice_currency" %>
             </div>
         </div>
     </div>
@@ -47,12 +48,6 @@
                 </address>
             </div>
         </div>
-        <div class="col-4 offset-1" id="currency-wrapper">
-            <div class="field input-group">
-                <span class="input-group-addon"><%= f.label :currency, id: "currency-label", required: false %></span>
-                <%= f.text_field :currency, class: "form-control" %>
-            </div>
-        </div>
     </div>
 </section>
 <br>
@@ -63,53 +58,52 @@
                 <thead>
                     <th class="item_name">Item</th>
                     <th class="description">Description</th>
-                    <th class='unit'>Unit</th>
+                    <th class='unit'>Unit Cost</th>
                     <th class='quantity'>Quantity</th>
                     <th class='price'>Price</th>
                     <th class='no_print'>Actions</th>
                 </thead>
                 <tbody>
-                            <tr class="item-row">
-                                <td><input class="form-control item_name" value="Item #1"/></td>
-                                <td><input class="form-control item_desc" value="Description"/></td>
-                                <td><input class="form-control cost" value="650.00"/></td>
-                                <td><input class="form-control qty" value="1"/></td>
-                                <td class="price_td">
-                                    <span class="price">650.00</span>
-                                    <span class="subtotal_currency"></span>
-                                </td>
-                                <td class="delete_td">
-                                    <a class="delete" href="javascript:;" title="Remove row">
-                                        <span class="ti-close"></span>
-                                    </a>
-                                </td>
-                            </tr>
+                    <tr class="item-row">
+                        <td><input class="form-control item_name" value="Item #1"/></td>
+                        <td><input class="form-control item_desc" value="Description"/></td>
+                        <td><input class="form-control cost" value="650.00"/></td>
+                        <td><input class="form-control qty" value="1"/></td>
+                        <td class="price_td">
+                            <span class="price">650.00</span>
+                            <span class="subtotal_currency"></span>
+                        </td>
+                        <td class="delete_td">
+                            <a class="delete" href="javascript:;" title="Remove row">
+                                <%= fa_icon 'minus-circle' %>
+                            </a>
+                        </td>
+                    </tr>
 
-                            <tr class="item-row">
-                                <td><input class="form-control item_name" value="Item #2"/></td>
+                    <tr class="item-row">
+                        <td><input class="form-control item_name" value="Item #2"/></td>
+                        <td><input class="form-control item_desc" value="Description #2"/></td>
+                        <td><input class="form-control cost" value="75.00"/></td>
+                        <td><input class="form-control qty" value="3"/></td>
+                        <td class="price_td">
+                            <span class="price">225.00</span>
+                            <span class="subtotal_currency"></span>
+                        </td>
+                        <td class="delete_td">
+                            <a class="delete" href="javascript:;" title="Remove row">
+                                <%= fa_icon 'minus-circle' %>
+                            </a>
+                        </td>
+                    </tr>
 
-                                <td><input class="form-control item_desc" value="Description #2"/></td>
-                                <td><input class="form-control cost" value="75.00"/></td>
-                                <td><input class="form-control qty" value="3"/></td>
-                                <td class="price_td">
-                                    <span class="price">225.00</span>
-                                    <span class="subtotal_currency"></span>
-                                </td>
-                                <td class="delete_td">
-                                    <a class="delete" href="javascript:;" title="Remove row">
-                                        <span class="ti-close"></span>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <tr id="hiderow">
-                                <td colspan="6">
-                                    <a id="addrow" class="btn btn-info btn-sm" href="javascript:;" title="Add a row">
-                                        <span class="ti-plus"></span>
-                                        Add a row</a>
-                                </td>
-                            </tr>
-                        </tbody>
+                    <tr id="hiderow">
+                        <td colspan="6">
+                            <a id="addrow" class="btn btn-info btn-sm" href="javascript:;" title="Add a row">
+                                <span class="ti-plus"></span>
+                                Add a row</a>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -131,7 +125,7 @@
                     </tr>
                     <tr>
                         <th>Tax:</th>
-                        <td><input id="9" class="form-control" value="0.00"/></td>
+                        <td><input id="tax_input" class="form-control" value="0.00"/></td>
                     </tr>
                     <tr>
                         <th>Total:</th>
@@ -161,7 +155,7 @@
         <div class="col-11">
             <div class="actions col-10 justify-content-around">
                 <a class="btn btn-info" id="show_invoice_btn" data-toggle="modal" data-target="#invoice_modal">Show Invoice</a>
-                <%= f.submit 'Submit Payment' , class: "btn btn-primary"%>
+                <%= f.submit 'Submit Payment' , class: "btn btn-primary", id: "submit_invoice"%>
             </div>
         </div>
     </div>

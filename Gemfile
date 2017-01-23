@@ -54,3 +54,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'rails-assets-tether', '~> 1.1', '>= 1.1.1'
 gem 'simple_form', '~> 3.4'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
+gem 'bootstrap-datetimepicker-rails', '~> 0.0.11'
