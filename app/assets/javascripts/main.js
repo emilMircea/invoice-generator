@@ -17,13 +17,13 @@ $(document).ready(function() {
 		if ($('.delete').length < 2) $('.delete').hide();
 	}); // end on click function
 
-    $('body').on('keyup', '#invoice_currency', function() {
+    $('body').on('change', '#invoice_currency', function() {
         var c = $(this).val();
         $('.subtotal_currency').empty();
         $('.subtotal_currency').append(' ' + c);
     }); // end keyup function
 
-    $('body').on('click', '#submit_invoice', function(){
+    $('body').on('change', '#submit_invoice', function(){
 		var e = $('#invoice_total').text();
 		$('#invoice_total1').empty();
 		$('#invoice_total1').val(Number(e));

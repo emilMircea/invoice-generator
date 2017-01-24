@@ -5,11 +5,18 @@
     padding: .5rem
     background: $input-group-bg
     color: whitesmoke
+
+// HTML5 tag address
 address
     display: flex
     flex-direction: column
     flex: 1
     margin-bottom: 0
+
+.date-select-wrapper
+    display: flex
+    justify-content: space-between
+    border: 1px solid $light-gray
 
 #invoice_amount
     font-weight: bold
@@ -28,16 +35,17 @@ address
     border: none
     font-size: .8rem
 
+section#new-item-section
+    margin-top: 1rem
+    padding-top: 1rem
+
+#items-table, th, td
+    border: 3px solid tranparent
+
 .price_td
     display: flex
 .subtotal_currency
     margin-left: 5px
-
-
-.date-select-wrapper
-    display: flex
-    justify-content: space-between
-    border: 1px solid $light-gray
 
 .actions
     display: flex
@@ -49,11 +57,9 @@ address
 
 #main-invoice-section, #new-item-section, #total-section
     border: 2px solid $light-gray
-#invoice_number_wrapper
-    display: flex
-    flex-direction: column
-    // align-items: center
-    justify-content: flex-end
+#invoice-num-wrapper
+    margin-top: 2rem
+    margin-bottom: 1rem
 
 
 // NEW INVOICE STYLES
