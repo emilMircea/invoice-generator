@@ -5,4 +5,6 @@
 * Rails version 5.0.1
 
 
-* System dependencies: Postgresql database
+* System dependencies
+  * __Postgresql__ database
+  * __Ransack__ to filter invoices by date
