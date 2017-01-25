@@ -12,6 +12,10 @@
  *
  */
 
+ html * {
+     -webkit-font-smoothing: antialiased;
+ }
+
 @import "bootstrap";
 @import 'bootstrap-datetimepicker';
 @import "font-awesome";

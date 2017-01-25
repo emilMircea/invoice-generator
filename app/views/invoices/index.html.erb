@@ -8,12 +8,13 @@
                   <%= search_form_for @q, url: invoice_search_path(@invoices) ,class: "form-inline col-md-8 col-md-offset-2", html: { method: :post } do |f| %>
                   <td colspan='8' class="input-daterange">
                     <div class="row justify-content-md-center" id="search_row">
-                      <div class="col col-lg-2" id="search_date_from">
-                        <div class="col-12 col-md-auto"><b>FROM</b></div>
+                      <div class="col col-lg-5" id="search_date_from">
+                        <div class="col-12 col-md-auto" id="from-div"><b>FROM</b></div>
                         <%= f.date_select :date_gteq, class: "form-control input-sm"%>
                       </div>
-                      <div class="col-12 col-md-auto"><b>TO</b></div>
-                      <div class="col col-lg-2" id="search_date_to">
+                      <div class="col col-lg-5"
+                       id="search_date_to">
+                       <div class="col-12 col-md-auto" id="to-div"><b>TO</b></div>
                         <%= f.date_select :date_lteq, class: "form-control input-sm" %>
                       </div>
                       <div class="col-md-2 form-actions">
