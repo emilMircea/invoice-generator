@@ -6,7 +6,7 @@ class InvoicesController < ApplicationController
   def index
     # @invoices = Invoice.all
     @q = Invoice.ransack(params[:q])
-    @invoices = @q.result
+    @invoices = @q.result(distinct: true)
   end
 
   def search

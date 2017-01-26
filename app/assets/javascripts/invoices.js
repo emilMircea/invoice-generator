@@ -26,6 +26,6 @@ function update_price() {
 	update_subtotal();
 }
 
-function bind_1() {
+function bind1() {
      $('.cost, .qty').blur(update_price);
 }

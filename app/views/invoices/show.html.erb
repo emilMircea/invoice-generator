@@ -50,4 +50,17 @@
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="date"><p>Date: <b><%= @invoice.date %></b></p></div>
+    </div>
+    <div class="row">
+        <p>From: <b><%= @invoice.company %></b></p>
+    </div>
+    <div class="row">
+        <p>To: <b><%= @invoice.contractor %></b></p>
+
+    </div>
+    <div class="row">
+        <p>Total Sum Due: </p> <b><%= @invoice.amount %></b>
+    </div>
 </div>
