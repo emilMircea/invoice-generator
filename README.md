@@ -8,3 +8,4 @@
 * System dependencies
   * __Postgresql__ database
   * __Ransack__ to filter invoices by date
+  * __Vue.js__ for the invoice table ui
