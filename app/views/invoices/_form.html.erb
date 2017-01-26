@@ -11,9 +11,8 @@
     </ul>
 </div>
 <% end %>
-<section id="main-invoice-section">
+<section id="invoice-grand-wrapper">
     <div class="row" id="form-row-1">
-
         <div class="col-6 offset-1" id="date-wrapper">
             <div class="field input-group">
                 <span class="input-group-addon"><%= f.label :date, id: "date-label", required: false %></span>
@@ -54,7 +53,7 @@
 <section id="new-item-section">
     <div class="row justify-content-around" id="form-row-3">
         <div class="col-10">
-            <table class="table table-hover" id="items-table">
+            <table class="table table-hover" id="invoice-table">
                 <thead>
                     <th class="item_name">Item</th>
                     <th class="description">Description</th>
@@ -63,44 +62,29 @@
                     <th class='price'>Price</th>
                     <th class='no_print'>Actions</th>
                 </thead>
-                <tbody>
-                    <tr class="item-row">
-                        <td><input class="form-control item_name" value="Item #1"/></td>
-                        <td><input class="form-control item_desc" value="Description"/></td>
-                        <td><input class="form-control cost" value="650.00"/></td>
-                        <td><input class="form-control qty" value="1"/></td>
+                <tbody id="table-body">
+                    <tr class="item-row" id="input-data-row">
+                        <td><input class="form-control item_name" placeholder="Item Name"/></td>
+                        <td><input class="form-control item_desc" placeholder="Description"/></td>
+                        <td id="message"><input v-model.number='pricePerUnit' class="form-control costPerUnit" id="unitCost" /></td>
+                        <td><input v-model.number='quantity' class="form-control qty" placeholder="1"/></td>
                         <td class="price_td">
-                            <span class="price">650.00</span>
+                            <span class="price">{{ pricePerUnit * quantity }}</span>
                             <span class="subtotal_currency"></span>
                         </td>
                         <td class="delete_td">
-                            <a class="delete" href="javascript:;" title="Remove row">
+                            <a class="delete" title="Remove row">
                                 <%= fa_icon 'times-circle' %>
                             </a>
                         </td>
                     </tr>
-
-                    <tr class="item-row">
-                        <td><input class="form-control item_name" value="Item #2"/></td>
-                        <td><input class="form-control item_desc" value="Description #2"/></td>
-                        <td><input class="form-control cost" value="75.00"/></td>
-                        <td><input class="form-control qty" value="3"/></td>
-                        <td class="price_td">
-                            <span class="price">225.00</span>
-                            <span class="subtotal_currency"></span>
-                        </td>
-                        <td class="delete_td">
-                            <a class="delete" href="javascript:;" title="Remove row">
-                                <%= fa_icon 'times-circle' %>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <tr id="hiderow">
+                    <next-row></next-row>
+                    <tr>
                         <td colspan="6">
-                            <a id="addrow" class="btn btn-info btn-sm" href="javascript:;" title="Add a row">
+                            <a id="addrow" class="btn btn-info btn-sm" title="Add a row">
                                 <span class="ti-plus"></span>
-                                Add a row</a>
+                                Add a row
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -141,7 +125,7 @@
                             <span class="due" id="invoice_total">875.00</span>
                             <span class="subtotal_currency"></span>
                         </td>
-                        <%=f.hidden_field :amount, id: "invoice_total1" %>
+                        <%=f.hidden_field :amount, id: "invoice_total_hidden" %>
                     </tr>
                 </table>
             </div>
@@ -157,3 +141,37 @@
 </section>
 <br>
 <% end %>
+
+<script type="text/x-template" id='next-row-template'>
+    <tr class="item-row">
+        <td><input class="form-control item_name" placeholder="Item Name"/></td>
+        <td><input class="form-control item_desc" placeholder="Description"/></td>
+        <td><input v-model.number='pricePerUnit' class="form-control costPerUnit" id="unitCost" /></td>
+        <td><input v-model.number='quantity' class="form-control qty" placeholder="1"/></td>
+        <td class="price_td">
+            <span class="price">{{ pricePerUnit * quantity }}</span>
+            <span class="subtotal_currency"></span>
+        </td>
+        <td class="delete_td">
+            <a class="delete" title="Remove row">
+                <%= fa_icon 'times-circle' %>
+            </a>
+        </td>
+    </tr>
+</script>
+
+<script>
+  new Vue({
+    el: '#table-body',
+    data: {
+        pricePerUnit: 0,
+        quantity: 1
+    }
+})
+
+
+// register
+Vue.component('next-row', {
+    template: '#next-row-template'
+})
+</script>
