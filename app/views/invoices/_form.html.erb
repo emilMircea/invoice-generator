@@ -52,7 +52,8 @@
 <br>
 <section id="new-item-section">
     <div class="row justify-content-around" id="form-row-3">
-        <div class="col-10">
+        <div class="col-10" id="product-table-wrapper">
+
             <table class="table table-hover" id="invoice-table">
                 <thead>
                     <th class="item_name">Item</th>
@@ -78,7 +79,9 @@
                             </a>
                         </td>
                     </tr>
-                    <next-row></next-row>
+                    <tr>
+                        <my-table></my-table>
+                    </tr>
                     <tr>
                         <td colspan="6">
                             <a id="addrow" class="btn btn-info btn-sm" title="Add a row">
@@ -89,11 +92,10 @@
                     </tr>
                 </tbody>
             </table>
+
         </div>
     </div>
 </section>
-<br>
-
 <br>
 <section id="total-section">
     <div class="row justify-content-around" id="form-row-4">
@@ -142,36 +144,20 @@
 <br>
 <% end %>
 
-<script type="text/x-template" id='next-row-template'>
-    <tr class="item-row">
-        <td><input class="form-control item_name" placeholder="Item Name"/></td>
-        <td><input class="form-control item_desc" placeholder="Description"/></td>
-        <td><input v-model.number='pricePerUnit' class="form-control costPerUnit" id="unitCost" /></td>
-        <td><input v-model.number='quantity' class="form-control qty" placeholder="1"/></td>
-        <td class="price_td">
-            <span class="price">{{ pricePerUnit * quantity }}</span>
-            <span class="subtotal_currency"></span>
-        </td>
-        <td class="delete_td">
-            <a class="delete" title="Remove row">
-                <%= fa_icon 'times-circle' %>
-            </a>
-        </td>
-    </tr>
+<script type="text/x-template" id='table-script'>
+    <div><p>hello</p></div>
 </script>
 
 <script>
   new Vue({
-    el: '#table-body',
+    el: '#product-table-wrapper',
     data: {
         pricePerUnit: 0,
         quantity: 1
-    }
-})
-
-
-// register
-Vue.component('next-row', {
-    template: '#next-row-template'
+        }
+    })
+// register component
+Vue.component('my-table', {
+    template: '#table-script'
 })
 </script>
