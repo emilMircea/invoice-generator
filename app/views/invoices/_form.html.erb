@@ -52,7 +52,7 @@
 <br>
 <section id="new-item-section">
     <div class="row justify-content-around" id="form-row-3">
-        <div class="col-10">
+        <div class="col-10" id="table-wrap">
             <table class="table table-hover" id="invoice-table">
                 <thead>
                     <th class="item_name">Item</th>
@@ -62,33 +62,28 @@
                     <th class='price'>Price</th>
                     <th class='no_print'>Actions</th>
                 </thead>
-                <tbody id="table-body">
+                <tbody v-for="(row, index) in rows">
                     <tr class="item-row" id="input-data-row">
                         <td><input class="form-control item_name" placeholder="Item Name"/></td>
                         <td><textarea rows='1' class="form-control item_desc" placeholder="Description"></textarea></td>
-                        <td><input v-model.number='pricePerUnit' class="form-control" id="unitCost" /></td>
-                        <td><input v-model.number='quantity' class="form-control qty" placeholder="1"/></td>
-                        <td class="price_td">
-                            <span class="total-price">{{ pricePerUnit * quantity }}</span>
+                        <td><input v-model.number='row.pricePerUnit' class="form-control" id="unitCost" /></td>
+                        <td><input v-model.number='row.quantity' class="form-control qty" placeholder="1"/></td>
+                        <td>
+                            <span class="total-price">{{ row.pricePerUnit * row.quantity }}</span>
                         </td>
-                        <td class="delete_td">
-                            <a class="delete" title="Remove row">
-                                <%= fa_icon 'times-circle' %>
-                            </a>
-                        </td>
-                    </tr>
-                    <next-row></next-row>
-                    <tr>
-                        <td colspan="6">
-                            <a id="addrow" class="btn btn-info btn-sm" title="Add a row">
-                                <span class="ti-plus"></span>
-                                Add a row
-                            </a>
-                        </td>
+                         <td>
+                             <a @click="removeRow(index)">
+                                  <%= fa_icon 'times-circle' %>
+                             </a>
+                         </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+            <a @click='addRow' id="addrow" class="btn btn-info btn-sm">
+                <%= fa_icon 'plus' %>
+                Add a row
+            </a>
+        </div><!-- end table-wrap - entry-point div for vuejs -->
     </div>
 </section>
 <br>
@@ -141,36 +136,23 @@
 <br>
 <% end %>
 
-<script type="text/x-template" id='next-row-template'>
-    <tr class="item-row">
-        <td><input class="form-control item_name" placeholder="Item Name"/></td>
-        <td><input class="form-control item_desc" placeholder="Description"/></td>
-        <td><input v-model.number='pricePerUnit' class="form-control costPerUnit" id="unitCost" /></td>
-        <td><input v-model.number='quantity' class="form-control qty" placeholder="1"/></td>
-        <td class="price_td">
-            <span class="price">{{ pricePerUnit * quantity }}</span>
-            <span class="subtotal_currency"></span>
-        </td>
-        <td class="delete_td">
-            <a class="delete" title="Remove row">
-                <%= fa_icon 'times-circle' %>
-            </a>
-        </td>
-    </tr>
-</script>
 
 <script>
-  new Vue({
-    el: '#table-body',
+var app = new Vue({
+    el: '#table-wrap',
     data: {
-        pricePerUnit: 0,
-        quantity: 1
+        rows: [
+            {pricePerUnit: 0, quantity: 1}
+        ]
+    },
+    methods:{
+        addRow: function(){
+          this.rows.push({price: 1, quantity: 1});
+        },
+        removeRow: function(index) {
+          this.rows.splice(index,1);
+        }
     }
 })
 
-
-// register
-Vue.component('next-row', {
-    template: '#next-row-template'
-})
 </script>
