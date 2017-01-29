@@ -65,12 +65,11 @@
                 <tbody id="table-body">
                     <tr class="item-row" id="input-data-row">
                         <td><input class="form-control item_name" placeholder="Item Name"/></td>
-                        <td><input class="form-control item_desc" placeholder="Description"/></td>
-                        <td id="message"><input v-model.number='pricePerUnit' class="form-control costPerUnit" id="unitCost" /></td>
+                        <td><textarea rows='1' class="form-control item_desc" placeholder="Description"></textarea></td>
+                        <td><input v-model.number='pricePerUnit' class="form-control" id="unitCost" /></td>
                         <td><input v-model.number='quantity' class="form-control qty" placeholder="1"/></td>
                         <td class="price_td">
-                            <span class="price">{{ pricePerUnit * quantity }}</span>
-                            <span class="subtotal_currency"></span>
+                            <span class="total-price">{{ pricePerUnit * quantity }}</span>
                         </td>
                         <td class="delete_td">
                             <a class="delete" title="Remove row">
