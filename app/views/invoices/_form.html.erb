@@ -11,7 +11,7 @@
     </ul>
 </div>
 <% end %>
-<section id="invoice-grand-wrapper">
+<main id="main-wrapper">
     <div class="row" id="form-row-1">
         <div class="col-6 offset-1" id="date-wrapper">
             <div class="field input-group">
@@ -48,92 +48,95 @@
             </div>
         </div>
     </div>
-</section>
-<br>
-<section id="new-item-section">
-    <div class="row justify-content-around" id="form-row-3">
-        <div class="col-10" id="table-wrap">
-            <table class="table table-hover" id="invoice-table">
-                <thead>
-                    <th class="item_name">Item</th>
-                    <th class="description">Description</th>
-                    <th class='unit'>Unit Cost</th>
-                    <th class='quantity'>Quantity</th>
-                    <th class='price'>Price</th>
-                    <th class='no_print'>Actions</th>
-                </thead>
-                <tbody v-for="(row, index) in rows">
-                    <tr class="item-row" id="input-data-row">
-                        <td><input class="form-control item_name" placeholder="Item Name"/></td>
-                        <td><textarea rows='1' class="form-control item_desc" placeholder="Description"></textarea></td>
-                        <td><input v-model.number='row.pricePerUnit' class="form-control" id="unitCost" /></td>
-                        <td><input v-model.number='row.quantity' class="form-control qty" placeholder="1"/></td>
-                        <td>
-                            <span class="pricePerRow">{{ row.pricePerUnit * row.quantity | currency }}</span>
-                        </td>
-                         <td>
-                             <a @click="removeRow(index)">
-                                  <%= fa_icon 'times-circle' %>
-                             </a>
-                         </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="total">TOTAL: </div>
-            <a @click='addRow' id="addrow" class="btn btn-info btn-sm">
-                <%= fa_icon 'plus' %>
-                Add a row
-            </a>
-        </div><!-- end table-wrap - entry-point div for vuejs -->
-    </div>
-</section>
-<br>
-
-<br>
-<section id="total-section">
-    <div class="row justify-content-around" id="form-row-4">
-        <div class="col-3"></div>
-        <div class=" col-auto form-group" id="invoice_number_wrapper">
-            <div class="input-group-addon" id="invoice-num-wrapper">
-                <small>Invoice no: <%= Invoice.last.present? ? Invoice.last.id + 1 : 1 %>
-                </small>
-            </div>
-        </div>
-        <div class="col-3"></div>
-        <div class="col-8">
-            <div class="table-responsive">
-                <table class="table table-hover" id="totals">
-                    <tr>
-                        <th style="width:50%">Subtotal:</th>
-                        <td>
-                            <span id="subtotal">875.00</span>
-                            <span class="subtotal_currency"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Tax:</th>
-                        <td><input id="tax_input" class="form-control" value="0.00"/></td>
-                    </tr>
-                    <tr>
-                        <th>Total:</th>
-                        <td class="balance">
-                            <span class="due" id="invoice_total">875.00</span>
-                            <span class="subtotal_currency"></span>
-                        </td>
-                        <%=f.hidden_field :amount, id: "invoice_total_hidden" %>
-                    </tr>
+    <br>
+    <section id="new-item-section">
+        <div class="row justify-content-around" id="form-row-3">
+            <div class="col-10" id="table-wrap">
+                <table class="table table-hover" id="invoice-table">
+                    <thead>
+                        <th class="item_name">Item</th>
+                        <th class="description">Description</th>
+                        <th class='unit'>Unit Cost</th>
+                        <th class='quantity'>Quantity</th>
+                        <th class='price'>Price</th>
+                        <th class='no_print'>Actions</th>
+                    </thead>
+                    <tbody v-for="(row, index) in rows">
+                        <tr class="item-row" id="input-data-row">
+                            <td><input class="form-control item_name" placeholder="Item Name"/></td>
+                            <td><textarea rows='1' class="form-control item_desc" placeholder="Description"></textarea></td>
+                            <td><input v-model.number='row.pricePerUnit' class="form-control" id="unitCost" /></td>
+                            <td><input v-model.number='row.quantity' class="form-control qty" placeholder="1"/></td>
+                            <td>
+                                <span class="pricePerRow">{{ row.pricePerUnit * row.quantity | currency }}</span>
+                            </td>
+                             <td>
+                                 <a @click="removeRow(index)">
+                                      <%= fa_icon 'times-circle' %>
+                                 </a>
+                             </td>
+                        </tr>
+                    </tbody>
                 </table>
+                <div class="total">TOTAL: {{total | currency }} </div>
+                <a @click='addRow' id="addrow" class="btn btn-info btn-sm">
+                    <%= fa_icon 'plus' %>
+                    Add a row
+                </a>
+            </div><!-- end table-wrap - entry-point div for vuejs -->
+        </div>
+    </section>
+    <br>
+
+    <br>
+    <section id="total-section">
+        <div class="row justify-content-around" id="form-row-4">
+            <div class="col-3"></div>
+            <div class=" col-auto form-group" id="invoice_number_wrapper">
+                <div class="input-group-addon" id="invoice-num-wrapper">
+                    <small>Invoice no: <%= Invoice.last.present? ? Invoice.last.id + 1 : 1 %>
+                    </small>
+                </div>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-8">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="totals">
+                        <tr>
+                            <th style="width:50%">Subtotal:</th>
+                            <td>
+                                <span id="subtotal">{{total | currency }}</span>
+                                <span class="subtotal_currency"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Tax:</th>
+                            <td class="tax">
+                                <span>{{tax | currency}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Total:</th>
+                            <td class="balance">
+                                <span class="due" id="invoice_total">{{total + tax | currency}}</span>
+                                <span class="subtotal_currency"></span>
+                            </td>
+                            <%=f.hidden_field :amount, id: "invoice_total_hidden" %>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-end" id="form-row-5">
-        <div class="col-11">
-            <div class="actions col-10 justify-content-center">
-                <%= f.submit 'Submit Payment' , class: "btn btn-primary", id: "submit_invoice"%>
+        <div class="row justify-content-end" id="form-row-5">
+            <div class="col-11">
+                <div class="actions col-10 justify-content-center">
+                    <%= f.submit 'Submit Payment' , class: "btn btn-primary", id: "submit_invoice"%>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+</main>
 <br>
 <% end %>
 
@@ -146,7 +149,7 @@ Vue.filter('currency', function(val){
 })
 
 var app = new Vue({
-    el: '#table-wrap',
+    el: '#main-wrapper',
     data: {
         rows: [
             {pricePerUnit: 0, quantity: 1}
@@ -159,7 +162,16 @@ var app = new Vue({
         removeRow: function(index) {
           this.rows.splice(index,1);
         }
-    }
+    },
+
+    computed: {
+        total: function () {
+            return this.rows.reduce((total, value) => {return total + Number(value.pricePerUnit * value.quantity)}, 0)
+        }, // end total function
+        tax: function () {
+            return this.rows.reduce((tax, value) => {return tax + Number(value.pricePerUnit * value.quantity) * 21 / 100}, 0)
+        }
+    } // end computed
 })
 
 </script>
