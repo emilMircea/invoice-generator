@@ -69,7 +69,7 @@
                         <td><input v-model.number='row.pricePerUnit' class="form-control" id="unitCost" /></td>
                         <td><input v-model.number='row.quantity' class="form-control qty" placeholder="1"/></td>
                         <td>
-                            <span class="total-price">{{ row.pricePerUnit * row.quantity }}</span>
+                            <span class="pricePerRow">{{ row.pricePerUnit * row.quantity | currency }}</span>
                         </td>
                          <td>
                              <a @click="removeRow(index)">
@@ -79,6 +79,7 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="total">TOTAL: </div>
             <a @click='addRow' id="addrow" class="btn btn-info btn-sm">
                 <%= fa_icon 'plus' %>
                 Add a row
@@ -136,8 +137,14 @@
 <br>
 <% end %>
 
+<script type="text/javascript" src='accounting.js'>
 
+</script>
 <script>
+Vue.filter('currency', function(val){
+    return accounting.formatMoney(val)
+})
+
 var app = new Vue({
     el: '#table-wrap',
     data: {
