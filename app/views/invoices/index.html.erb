@@ -17,8 +17,8 @@
                        <div class="col-12 col-md-auto" id="to-div"><b>TO</b></div>
                         <%= f.date_select :date_lteq, class: "form-control input-sm" %>
                       </div>
-                      <div class="col-md-2">
-                        <%= f.submit 'Search', class: "btn btn-success" %>
+                      <div class="col-md-2 search-btn-wrap">
+                        <%= f.submit 'Search', class: "btn btn-success", id: "submit-search-date" %>
                       </div>
                     </div>
                   </td>

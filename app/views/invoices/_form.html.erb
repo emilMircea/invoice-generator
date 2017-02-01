@@ -121,7 +121,8 @@
                                 <span class="due" id="invoice_total">{{total + tax | currency}}</span>
                                 <span class="subtotal_currency"></span>
                             </td>
-                            <%= f.hidden_field :amount, id: "invoice_total_hidden" %>
+                            
+                            <input id="invoice_total_hidden" type="hidden" :value="total + tax" name="invoice[amount]">
                         </tr>
                     </table>
                 </div>
