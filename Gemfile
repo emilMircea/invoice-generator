@@ -55,5 +55,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'rails-assets-tether', '~> 1.1', '>= 1.1.1'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
-gem 'ransack', '~> 1.8', '>= 1.8.2'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'accountingjs-rails', '~> 0.0.4'
