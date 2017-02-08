@@ -38,7 +38,7 @@
             <tbody>
                 <% @invoices.each do |invoice| %>
                 <tr>
-                    <td><%= invoice.amount %></td>
+                    <td><%= '%.2f' % invoice.amount %></td>
                     <td><%= invoice.company %></td>
                     <td><%= invoice.contractor %></td>
                     <td><%= invoice.currency %></td>
