@@ -2,30 +2,39 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-8">
-            <table id="index-table" class="table table-hover table-bordered">
+            <table id="show-table" class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>
-                            <strong>Amount:</strong>
+                            <strong>Invoice No.</strong>
                         </th>
                         <th>
-                            <strong>Company:</strong>
+                            <strong>Amount</strong>
                         </th>
                         <th>
-                            <strong>Contractor:</strong>
+                            <strong>Currency</strong>
                         </th>
                         <th>
-                            <strong>Currency:</strong>
+                            <strong>Company</strong>
                         </th>
                         <th>
-                            <strong>Date:</strong>
+                            <strong>Contractor</strong>
+                        </th>
+                        <th>
+                            <strong>Date</strong>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th>
+                            <%= @invoice.id + 1 || 1 %>
+                        </th>
+                        <th>
                             <%= @invoice.amount %>
+                        </th>
+                        <th>
+                            <%= @invoice.currency %>
                         </th>
                         <th>
                             <%= @invoice.company %>
@@ -34,36 +43,22 @@
                             <%= @invoice.contractor %>
                         </th>
                         <th>
-                            <%= @invoice.currency %>
-                        </th>
-                        <th>
                             <%= @invoice.date %>
                         </th>
                     </tr>
                     <tr>
-                        <td colspan="5 btn-group">
+                        <td colspan="6 btn-group">
                             <%= link_to 'Edit', edit_invoice_path(@invoice), class: "btn btn-warning" %>
                             <%= link_to 'Back', invoices_path, class: "btn btn-info" %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6 btn-group">
+                            <%= link_to 'See PDF Vesion', class: "btn btn-info" %>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="row">
-        <div class="id"><p>Invoice Number: <b><%= @invoice.id + 1 || 1 %></b></p></div>
-    </div>
-    <div class="row">
-        <div class="date"><p>Date: <b><%= @invoice.date %></b></p></div>
-    </div>
-    <div class="row">
-        <p>From: <b><%= @invoice.company %></b></p>
-    </div>
-    <div class="row">
-        <p>To: <b><%= @invoice.contractor %></b></p>
-
-    </div>
-    <div class="row">
-        <p>Total Sum Due: </p> <b><%= @invoice.amount %></b>
     </div>
 </div>
