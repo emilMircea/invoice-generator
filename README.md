@@ -9,3 +9,8 @@
   * __Postgresql__ database
   * __Ransack__ to filter invoices by date
   * __Vue.js__ for the invoice table ui
+
+
+* Security
+
+- Added __brakeman__ & __bundler-audit__ gems and ran the tests. 
