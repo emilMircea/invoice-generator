@@ -8,7 +8,6 @@ class InvoicesController < ApplicationController
     @q = Invoice.ransack(params[:q])
     @q.sorts = ['name asc', 'created_at DESC'] if @q.sorts.empty?
     @invoices = @q.result(distinct: true)
-
   end
 
   def search
