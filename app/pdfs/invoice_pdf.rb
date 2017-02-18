@@ -2,8 +2,14 @@ class InvoicePdf < Prawn::Document
   def initialize(invoice)
     super(top_margin: 50)
     @invoice = invoice
+    invoice_logo
     invoice_number
     line_items
+  end
+
+  def invoice_logo
+    logopath = "#{Rails.root}/app/assets/images/logo-for-pdf.png"
+    image logopath, width: 50, height: 50, position: :center
   end
 
   def invoice_number
